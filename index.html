@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Enter My Heart</title>
+<title>Love Story</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 
@@ -20,10 +20,8 @@
 body {
   overflow: hidden;
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(to right, #1c1c2e, #2b1f3a);
+  background: #1c1c2e;
 }
-
-/* ---------- PAGE SYSTEM ---------- */
 
 .page {
   position: absolute;
@@ -41,7 +39,9 @@ body {
   z-index: 2;
 }
 
-/* ---------- HEART ---------- */
+/* ================================= */
+/* PAGE 1 */
+/* ================================= */
 
 .heart-container {
   position: relative;
@@ -80,8 +80,6 @@ body {
   top: 0;
 }
 
-/* ---------- BUTTON TEXT ---------- */
-
 .enter-text {
   position: absolute;
   width: 220px;
@@ -104,15 +102,68 @@ body {
   text-shadow: 0 0 15px #ffd166;
 }
 
-/* ---------- PAGE 2 PLACEHOLDER ---------- */
+/* ================================= */
+/* PAGE 2 */
+/* ================================= */
 
 .page2 {
+  position: relative;
+  overflow: hidden;
+}
+
+.page2 video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.page2::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(28,28,46,0.5);
+  z-index: 1;
+}
+
+/* HEART IMAGE CONTAINER */
+
+.heart-frame {
+  position: relative;
+  width: 250px;
+  height: 230px;
+  transform: rotate(-45deg);
+  z-index: 2;
+}
+
+.heart-img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+  opacity: 0;
+  transition: opacity 1.5s ease;
+  clip-path: path("M125 230 L25 125 A60 60 0 1 1 125 60 A60 60 0 1 1 225 125 Z");
+}
+
+.heart-img.active-img {
+  opacity: 1;
+}
+
+/* ================================= */
+/* PAGE 3 PLACEHOLDER */
+/* ================================= */
+
+.page3 {
+  background: linear-gradient(to right, #1c1c2e, #2b1f3a);
   font-family: 'Playfair Display', serif;
   font-size: 35px;
   color: #fff1e6;
 }
 
-/* ---------- ANIMATION ---------- */
+/* ANIMATION */
 
 @keyframes pulse {
   0% { transform: rotate(-45deg) scale(1); }
@@ -134,7 +185,21 @@ body {
 
 <!-- PAGE 2 -->
 <section class="page page2">
-  Page 2 Coming Soon...
+  <video src="your-video.mp4" autoplay muted loop></video>
+
+  <div class="heart-frame">
+    <img src="photo1.jpg" class="heart-img active-img">
+    <img src="photo2.jpg" class="heart-img">
+    <img src="photo3.jpg" class="heart-img">
+    <img src="photo4.jpg" class="heart-img">
+    <img src="photo5.jpg" class="heart-img">
+    <img src="photo6.jpg" class="heart-img">
+  </div>
+</section>
+
+<!-- PAGE 3 -->
+<section class="page page3">
+  Page 3 Coming Soon...
 </section>
 
 <script>
@@ -157,10 +222,19 @@ document.addEventListener("keydown", function(e) {
 });
 
 document.querySelector(".enter-text").addEventListener("click", function() {
-  if (currentPage < pages.length - 1) {
-    showPage(currentPage + 1);
-  }
+  showPage(1);
 });
+
+/* HEART IMAGE SLIDER */
+
+const images = document.querySelectorAll(".heart-img");
+let imgIndex = 0;
+
+setInterval(() => {
+  images[imgIndex].classList.remove("active-img");
+  imgIndex = (imgIndex + 1) % images.length;
+  images[imgIndex].classList.add("active-img");
+}, 3000);
 
 </script>
 
