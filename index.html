@@ -3,73 +3,168 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sunset Love</title>
+<title>Enter My Heart</title>
 
+<!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="style.css">
+<style>
+
+/* ---------- GLOBAL STYLES ---------- */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
+  background: #1c1c2e;
+}
+
+/* ---------- PAGE WRAPPER ---------- */
+
+.page {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.page.active {
+  opacity: 1;
+  z-index: 2;
+}
+
+/* ---------- PAGE 1 BACKGROUND ---------- */
+
+.page1 {
+  background: url("YOUR_BACKGROUND_IMAGE.jpg") center/cover no-repeat;
+  position: relative;
+}
+
+.page1::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(28,28,46,0.6);
+  backdrop-filter: blur(12px);
+}
+
+/* ---------- HEART CONTAINER ---------- */
+
+.heart-wrapper {
+  position: relative;
+  z-index: 3;
+  width: 300px;
+  height: 270px;
+}
+
+.heart {
+  width: 100%;
+  height: 100%;
+  background: url("YOUR_HEART_IMAGE.jpg") center/cover no-repeat;
+  clip-path: path("M150 270 L30 150 A75 75 0 1 1 150 75 A75 75 0 1 1 270 150 Z");
+  position: relative;
+  animation: pulse 3s infinite;
+  box-shadow: 0 0 25px #ff8fab;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ---------- BUTTON TEXT ---------- */
+
+.enter-btn {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  color: #fff1e6;
+  text-align: center;
+  padding: 10px 20px;
+  border: 1px solid #ffd166;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: 0.4s ease;
+  background: rgba(0,0,0,0.4);
+}
+
+.enter-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 20px #ffd166;
+}
+
+/* ---------- PAGE 2 PLACEHOLDER ---------- */
+
+.page2 {
+  background: linear-gradient(to right, #1c1c2e, #2b1f3a);
+  color: #fff1e6;
+  font-size: 30px;
+  font-family: 'Playfair Display', serif;
+}
+
+/* ---------- ANIMATIONS ---------- */
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 20px #ff8fab; }
+  50% { box-shadow: 0 0 40px #fb6f92; }
+  100% { box-shadow: 0 0 20px #ff8fab; }
+}
+
+</style>
 </head>
 <body>
 
-<!-- CHAPTER 1 -->
-<section id="portal" class="section active">
-    <div class="overlay"></div>
-
-    <div class="heart-container">
-        <div class="heart-image"></div>
+<!-- PAGE 1 -->
+<section class="page page1 active">
+  <div class="heart-wrapper">
+    <div class="heart">
+      <div class="enter-btn">
+        Enter My Heart
+      </div>
     </div>
-
-    <button id="enterBtn" class="enter-btn">Enter My Heart</button>
+  </div>
 </section>
 
-<!-- CHAPTER 2 -->
-<section id="memory" class="section">
-    <video id="bgVideo1" autoplay muted loop>
-        <source src="memory-video.mp4" type="video/mp4">
-    </video>
-
-    <div class="photo-container">
-        <img id="photoSequence" src="photo1.jpg">
-    </div>
+<!-- PAGE 2 (placeholder for next section) -->
+<section class="page page2">
+  Page 2 Coming Soon...
 </section>
 
-<!-- CHAPTER 3 -->
-<section id="textReveal" class="section">
-    <h1 id="romanticText">You were never just a moment. You became my forever.</h1>
-</section>
+<script>
 
-<!-- CHAPTER 4 -->
-<section id="mapSection" class="section">
-    <div class="map-container">
-        <canvas id="mapCanvas"></canvas>
-        <div class="mapText">Miles apart. One heartbeat.</div>
-    </div>
-</section>
+/* ---------- PAGE TRANSITION LOGIC ---------- */
 
-<!-- CHAPTER 5 -->
-<section id="emotional" class="section">
-    <video autoplay muted loop>
-        <source src="second-video.mp4" type="video/mp4">
-    </video>
-    <h2 class="emotionalText">Even in distance, your presence feels closer than breath.</h2>
-</section>
+const pages = document.querySelectorAll(".page");
+let currentPage = 0;
 
-<!-- CHAPTER 6 -->
-<section id="finale" class="section">
-    <video autoplay muted loop>
-        <source src="warm-video.mp4" type="video/mp4">
-    </video>
+function showPage(index) {
+  pages[currentPage].classList.remove("active");
+  currentPage = index;
+  pages[currentPage].classList.add("active");
+}
 
-    <div class="love-letter">
-        <p>
-            In every sunset, I find your warmth.  
-            In every silence, I hear your name.  
-            And in every heartbeat… I feel us.
-        </p>
-    </div>
-</section>
+document.addEventListener("keydown", function(e) {
+  if (e.key === "Enter") {
+    if (currentPage < pages.length - 1) {
+      showPage(currentPage + 1);
+    }
+  }
+});
 
-<script src="script.js"></script>
+document.querySelector(".enter-btn").addEventListener("click", function() {
+  if (currentPage < pages.length - 1) {
+    showPage(currentPage + 1);
+  }
+});
+
+</script>
+
 </body>
 </html>
-
