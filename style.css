@@ -1,0 +1,159 @@
+:root {
+    --base: #1c1c2e;
+    --gradient: linear-gradient(to bottom, #1c1c2e, #2b1f3a);
+    --peach: #ff8fab;
+    --coral: #fb6f92;
+    --gold: #ffd166;
+    --text-main: #fff1e6;
+    --text-secondary: #ffd6e0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--gradient);
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-main);
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+.section {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.section.active {
+    display: flex;
+    animation: fadeIn 1.2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* PORTAL */
+
+.overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(28,28,46,0.6);
+    backdrop-filter: blur(12px);
+}
+
+.heart-container {
+    width: 250px;
+    height: 250px;
+    position: relative;
+}
+
+.heart-image {
+    width: 100%;
+    height: 100%;
+    background: url('heart-photo.jpg') center/cover;
+    clip-path: path("M125 220 C0 140 0 60 60 60 C100 60 125 100 125 100 C125 100 150 60 190 60 C250 60 250 140 125 220");
+    box-shadow: 0 0 30px var(--peach);
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    from { box-shadow: 0 0 20px var(--peach); }
+    to { box-shadow: 0 0 40px var(--gold); }
+}
+
+.enter-btn {
+    position: absolute;
+    bottom: 15%;
+    padding: 12px 30px;
+    background: var(--peach);
+    border: none;
+    border-radius: 30px;
+    color: white;
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    transition: 0.4s;
+}
+
+.enter-btn:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 0 20px var(--gold);
+}
+
+/* VIDEO BACKGROUND */
+
+video {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.photo-container img {
+    width: 400px;
+    border-radius: 15px;
+    transition: transform 8s ease;
+}
+
+.photo-container img.zoom {
+    transform: scale(1.05);
+}
+
+/* TEXT */
+
+#romanticText {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: var(--text-secondary);
+    text-shadow: 0 0 15px var(--gold);
+    opacity: 0;
+    transition: opacity 2s ease;
+}
+
+/* MAP */
+
+.map-container {
+    width: 80%;
+    height: 70%;
+    border: 2px solid var(--peach);
+    border-radius: 20px;
+    position: relative;
+}
+
+.mapText {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    font-family: 'Playfair Display', serif;
+}
+
+/* FINALE */
+
+.love-letter {
+    max-width: 600px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    line-height: 1.8;
+    animation: rise 6s ease forwards;
+}
+
+@keyframes rise {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@media(max-width:768px){
+    .photo-container img { width: 80%; }
+    #romanticText { font-size: 1.8rem; }
+}
