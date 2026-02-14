@@ -5,12 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Enter My Heart</title>
 
-<!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
 
-/* ---------- GLOBAL STYLES ---------- */
+/* ---------- GLOBAL ---------- */
 
 * {
   margin: 0;
@@ -21,10 +20,10 @@
 body {
   overflow: hidden;
   font-family: 'Poppins', sans-serif;
-  background: #1c1c2e;
+  background: linear-gradient(to right, #1c1c2e, #2b1f3a);
 }
 
-/* ---------- PAGE WRAPPER ---------- */
+/* ---------- PAGE SYSTEM ---------- */
 
 .page {
   position: absolute;
@@ -42,79 +41,83 @@ body {
   z-index: 2;
 }
 
-/* ---------- PAGE 1 BACKGROUND ---------- */
+/* ---------- HEART ---------- */
 
-.page1 {
-  background: url("YOUR_BACKGROUND_IMAGE.jpg") center/cover no-repeat;
+.heart-container {
   position: relative;
-}
-
-.page1::after {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: rgba(28,28,46,0.6);
-  backdrop-filter: blur(12px);
-}
-
-/* ---------- HEART CONTAINER ---------- */
-
-.heart-wrapper {
-  position: relative;
-  z-index: 3;
-  width: 300px;
-  height: 270px;
+  width: 220px;
+  height: 200px;
+  transform: rotate(-45deg);
+  animation: pulse 2.5s infinite;
 }
 
 .heart {
   width: 100%;
   height: 100%;
-  background: url("YOUR_HEART_IMAGE.jpg") center/cover no-repeat;
-  clip-path: path("M150 270 L30 150 A75 75 0 1 1 150 75 A75 75 0 1 1 270 150 Z");
-  position: relative;
-  animation: pulse 3s infinite;
-  box-shadow: 0 0 25px #ff8fab;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background: #ff4d6d;
+  position: absolute;
+  border-radius: 20px;
+  box-shadow: 0 0 40px #ff4d6d;
+}
+
+.heart:before,
+.heart:after {
+  content: "";
+  position: absolute;
+  width: 220px;
+  height: 200px;
+  background: #ff4d6d;
+  border-radius: 50%;
+}
+
+.heart:before {
+  top: -110px;
+  left: 0;
+}
+
+.heart:after {
+  left: 110px;
+  top: 0;
 }
 
 /* ---------- BUTTON TEXT ---------- */
 
-.enter-btn {
+.enter-text {
+  position: absolute;
+  width: 220px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: rotate(45deg);
+  z-index: 3;
   font-family: 'Playfair Display', serif;
-  font-size: 26px;
+  font-size: 22px;
   color: #fff1e6;
   text-align: center;
-  padding: 10px 20px;
-  border: 1px solid #ffd166;
-  border-radius: 30px;
   cursor: pointer;
   transition: 0.4s ease;
-  background: rgba(0,0,0,0.4);
 }
 
-.enter-btn:hover {
-  transform: scale(1.08);
-  box-shadow: 0 0 20px #ffd166;
+.enter-text:hover {
+  transform: rotate(45deg) scale(1.1);
+  text-shadow: 0 0 15px #ffd166;
 }
 
 /* ---------- PAGE 2 PLACEHOLDER ---------- */
 
 .page2 {
-  background: linear-gradient(to right, #1c1c2e, #2b1f3a);
-  color: #fff1e6;
-  font-size: 30px;
   font-family: 'Playfair Display', serif;
+  font-size: 35px;
+  color: #fff1e6;
 }
 
-/* ---------- ANIMATIONS ---------- */
+/* ---------- ANIMATION ---------- */
 
 @keyframes pulse {
-  0% { box-shadow: 0 0 20px #ff8fab; }
-  50% { box-shadow: 0 0 40px #fb6f92; }
-  100% { box-shadow: 0 0 20px #ff8fab; }
+  0% { transform: rotate(-45deg) scale(1); }
+  50% { transform: rotate(-45deg) scale(1.05); }
+  100% { transform: rotate(-45deg) scale(1); }
 }
 
 </style>
@@ -122,24 +125,19 @@ body {
 <body>
 
 <!-- PAGE 1 -->
-<section class="page page1 active">
-  <div class="heart-wrapper">
-    <div class="heart">
-      <div class="enter-btn">
-        Enter My Heart
-      </div>
-    </div>
+<section class="page active">
+  <div class="heart-container">
+    <div class="heart"></div>
+    <div class="enter-text">Enter My Heart</div>
   </div>
 </section>
 
-<!-- PAGE 2 (placeholder for next section) -->
+<!-- PAGE 2 -->
 <section class="page page2">
   Page 2 Coming Soon...
 </section>
 
 <script>
-
-/* ---------- PAGE TRANSITION LOGIC ---------- */
 
 const pages = document.querySelectorAll(".page");
 let currentPage = 0;
@@ -158,7 +156,7 @@ document.addEventListener("keydown", function(e) {
   }
 });
 
-document.querySelector(".enter-btn").addEventListener("click", function() {
+document.querySelector(".enter-text").addEventListener("click", function() {
   if (currentPage < pages.length - 1) {
     showPage(currentPage + 1);
   }
